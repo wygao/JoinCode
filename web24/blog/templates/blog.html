@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+{% block title%} blog{%endblock%}
+
+{%block content%}
+	<div class="container-fluid">
+		<div class="row-fluid">
+		    <div class="span3 div-style">
+				<h3>{{about_user.username}}</h3>
+				{% if about_user != user%}
+				<div>
+					<li><a href="/attention/{{about_user.id}}/">+attention</a></li>
+					<li><a href="/letter/{{about_user.id}}/">+letter</a></li>
+				</div>
+				{% else%}
+				<div>
+					<li><a href="">+setting</a></li>
+				</div>
+				{% endif %}
+
+		    </div>
+		    <div class="span8 div-style">
+		      <div>
+		     		<h3>my information</h3>
+		     		<p></p>
+		     		{%if about_user == user%}
+		     		<h3>letter</h3>
+		     		{% for letter in letter_list%}
+		     		<div><span>{{letter.create_time|date:"Y-m-s"}}</span><span>{{letter.post_user}}</span></div>
+		     		{% endfor %}
+		     		{% endif%}
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+{%endblock%}
