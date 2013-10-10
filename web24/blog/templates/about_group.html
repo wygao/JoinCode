@@ -26,7 +26,7 @@
 		      	<p>{{group.description}}</p>
 		      	{% for user in group.members.all%}
 		      	<div>
-		      		<li>{{user.username}}</li>
+		      		<li><a href="/blog/{{user.id}}">{{user.username}}</a></li>
 		      	</div>
 		      	{% endfor%}
 		      </div>

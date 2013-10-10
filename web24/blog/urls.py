@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
 
+    url(r'^$', 'blog.views.index'),
     url(r'^index/$', 'blog.views.index'),
     url(r'^login/$', 'blog.views.login_user'),
     url(r'^logout/$', 'blog.views.logout_user'),

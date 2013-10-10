@@ -39,8 +39,7 @@ def sign_user(request):
 		email = request.POST['email']
 		password = request.POST['passwd']
 		password = hashlib.sha1(username + password).hexdigest()
-		user = User.objects.create_user(username=username,email=email, 
-						password=password)
+		user = User.objects.create_user(username=username,email=email)
 		user.set_password(password)
 		user.save()
 		return HttpResponseRedirect('/index/')
@@ -107,8 +106,11 @@ def letter(request, id):
 
 def attention(request, id):
 	about_user = User.objects.get(id=id)
-	if request.is_authenticated():
+	if request.user.is_authenticated():
 		user = request.user
+		user.attention.add(about_user)
+		user.save()
+		return HttpResponseRedirect('/index/')
 	return HttpResponse('attention friends')
 
 def logout_user(request):

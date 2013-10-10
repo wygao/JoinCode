@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 from django.db.models import permalink
 
 class ProUser(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User, related_name=u'prouser')
 	headimg = models.URLField(blank=True, null=True, verbose_name=u'headimg')
-	attention = models.ForeignKey(User, related_name="attention")
+	attention = models.ManyToManyField('self', related_name="attention")
 
 	def __unicode__(self):
 		return self.user.username
@@ -21,7 +21,7 @@ class Letter(models.Model):
 
 class Group(models.Model):
 	groupname = models.CharField(max_length=50, unique=True, verbose_name=u'groupname')
-	master = models.OneToOneField(User, related_name=u'master')
+	master = models.ForeignKey(User)
 	isPublic = models.BooleanField(default=False, verbose_name=u'xiaozuzhuangtai')
 	# slug = models.SlugField(unique=True, verbose_name=u'slug')
 	create_time = models.DateTimeField(auto_now_add=True,verbose_name=u'createtime')
