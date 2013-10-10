@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 from django.db.models import permalink
 
 class ProUser(models.Model):
-	user = models.OneToOneField(User, related_name=u'prouser')
+	user = models.OneToOneField(User)
 	headimg = models.URLField(blank=True, null=True, verbose_name=u'headimg')
-	attention = models.ManyToManyField('self', related_name="attention")
+	attention = models.ManyToManyField(User, related_name=u'attention')
 
 	def __unicode__(self):
 		return self.user.username

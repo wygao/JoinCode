@@ -27,6 +27,9 @@
 		  		</div>
 		  		<div class="row-fluid">
 		  			<h3>attention</h3>
+		  			{% for atte_user in user.prouser.attention.all %}
+		  			<li><a href="/blog/{{atte_user.id}}">{{atte_user.username}}</a></li>
+		  			{% endfor%}
 		  		</div>
 		  		{% endif %}
 		      <div style="padding:15px 0px 0px">

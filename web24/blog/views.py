@@ -4,7 +4,7 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.models import User 
-from blog.models  import Letter, Group 
+from blog.models  import Letter, Group,ProUser
 from django.contrib.auth import login, logout, authenticate
 import hashlib
 
@@ -41,6 +41,7 @@ def sign_user(request):
 		password = hashlib.sha1(username + password).hexdigest()
 		user = User.objects.create_user(username=username,email=email)
 		user.set_password(password)
+		ProUser.objects.create(user=user)
 		user.save()
 		return HttpResponseRedirect('/index/')
 		
@@ -108,8 +109,7 @@ def attention(request, id):
 	about_user = User.objects.get(id=id)
 	if request.user.is_authenticated():
 		user = request.user
-		user.attention.add(about_user)
-		user.save()
+		user.prouser.attention.add(about_user)
 		return HttpResponseRedirect('/index/')
 	return HttpResponse('attention friends')
 
