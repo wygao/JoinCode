@@ -77,12 +77,18 @@ def apply_add(request, id):
 		return HttpResponse('this user is group master or group member')
 	return HttpResponse('please login')
 
-# def add_member(request, id):
+def add_member(request, id):
+	group = Group.objects.get(id=id)
+
+	return render(request, 'add_mem.html', {'group':group})
 
 
 def about_group(request, id):
 	group = Group.objects.get(id=id)
 
+	if request.method == "POST":
+		mem = request.POST.get('member')
+		member = User.objects.get(username=mem)
 	return render(request, 'about_group.html',{'group':group})
 
 
