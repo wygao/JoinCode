@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block  title%}{% endblock%}</title>
+	<link rel="stylesheet" href="/static/css/base.css">
+    <link href="/static/bootstrap-2.3.2/docs/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/bootstrap-2.3.2/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/bootstrap-2.3.2/docs/assets/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/static/bootstrap-2.3.2/docs/assets/ico/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/static/css/default.css" >
+
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-transition.js"></script>
+
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-alert.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-modal.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-dropdown.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-tab.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-tooltip.js"></script>
+
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-popover.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-button.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-collapse.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-carousel.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap-typeahead.js"></script>
+
+	 <!--<script src="//cdnjs.bootcss.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	 <script src="//cdnjs.bootcss.com/ajax/libs/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>-->
+	 <script src="/static/bootstrap-2.3.2/docs/assets/js/jquery.min.js"></script>
+	 <script src="/static/bootstrap-2.3.2/docs/assets/js/bootstrap.min.js"></script>
+    <script src="/static/bootstrap-2.3.2/docs/assets/js/holder/holder.js"></script>
+</head>
+<body style="background-color: #E0E0E0;">
+	{% include "header.html"%}
+	<div class="container">
+		<div class="container-narrow"  style="margin-top: 70px;">
+	<div class="masthead">
+		<ul class="nav nav-pills pull-right">
+			<li><a href="/#/">我的Joincode</a></li>
+			<li><a href="#">浏览发现</a></li>
+		</ul>
+		<h3 class="muted"><a href="/index/">Join code</a></h3>
+	</div>
+	<hr>
+</div>
+		{% block content%}{%endblock%}
+	</div>
+	<div class="container">
+		<hr/>
+		<footer>
+			<p class="pull-right">
+				<a href="" >关于Joincode</a>
+				.
+				<a href="#">Back to top</a>
+			</p>
+			<p>
+				2013 Company
+			</p>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+{% block title%} blog{%endblock%}
+
+{%block content%}
+	<div class="container-fluid">
+		<div class="row-fluid">
+		    <div class="span3 div-style">
+		    	<img src="{{user.prouser.headimg}}"  alt="123" height="80px" width="80px">
+				<h3>{{about_user.username}}</h3>
+				{% if about_user != user%}
+				<div>
+					<li><a href="/attention/{{about_user.id}}/">+关注</a></li>
+					<li><a href="/letter/{{about_user.id}}/">+私信</a></li>
+				</div>
+				{% else%}
+				<div>
+					<li><a href="/account/{{user.id}}">+设置</a></li>
+				</div>
+				{% endif %}
+
+		    </div>
+		    <div class="span8 div-style">
+		      <div>
+		     		<h3>我的小组话题</h3>
+		     	{% for article in about_user.article_set.all %}
+					<table class="table table-hover table-condensed">
+						<tr class="success">
+						    <td>{{forloop.counter}}</td>
+						    <td width="400px"><a href="/topic/{{article.id}}/">{{article.title}}</a></td>
+						    <td>{{article.create_time|date:"m/d/Y"}}</td>
+						    <td><a href="/blog/{{article.author.id}}/">{{article.author}}</a></td>
+					 	</tr>
+					</table>
+				{% endfor %}
+		     	
+		      </div>
+		    </div>
+		</div>
+	</div>
+
+{%endblock%}

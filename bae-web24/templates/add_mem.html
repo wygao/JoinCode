@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block title%}add mem{%endblock%}
+
+{% block content %}
+<div class="container-fluid">
+		<div class="row-fluid">
+		    <div class="span4">
+			   <div class="well sidebar-nav">
+			      <h3>{{group.groupname}}</h3>
+			      
+			      <div>
+			      	<li><a href="/blog/{{group.master.id}}/">{{group.master.username}}</a></li>
+			      </div>
+			  </div>
+		    </div>
+		    <div class="span8">
+			 <div class="well sidebar-nav">
+				<form class="form-search" action="" method="post">
+					{% csrf_token %}
+					<input type="text" class="input-medium search-query" name="member" placeholder="press user name">
+					<button type="submit" class="btn">Search</button>
+				</form>
+			</div>
+		    </div>
+		</div>
+	</div>
+{% endblock%}
