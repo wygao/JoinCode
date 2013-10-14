@@ -1,40 +1,15 @@
 {% extends 'base.html'%}
-{% block title%}about_group{%endblock%}
 
-{%block content%}
-	<div class="container-fluid">
-		<div class="row-fluid">
-		    <div class="span3 div-style">
-		      <h3>{{group.groupname}}</h3>
-		      
-		      <div>
-		      	<li><a href="/blog/{{group.master.id}}/">{{group.master.username}}</a></li>
-		      </div>
-		      {% if user in group.members.all%}
-		      <div style="padding:15px 0px 0px">
-		      	<a href="/add_member/{{group.id}}/" class="btn btn-success">add member</a>
-		      	{% if user == group.master%}
-		      	<a href="/del_group/{{group.id}}/" class="btn btn-success">del group</a>
-		      	{% endif %}
-		      </div>
-		      {% else%}
-		      <div style="padding:15px 0px 0px">
-		      	<a href="/add_group/{{group.id}}/" class="btn btn-success">add group</a>
-		      </div>
-		      {% endif %}
-		      
-		    </div>
-		    <div class="span8 div-style">
-		      <div>
-		      	<p>{{group.description}}</p>
-		      	{% for user in group.members.all%}
-		      	<div>
-		      		<li><a href="/blog/{{user.id}}">{{user.username}}</a></li>
-		      	</div>
-		      	{% endfor%}
-		      </div>
-		    </div>
+{% block content %}
+
+<div class="container">
+	<div class="row-fluid">
+		{% include 'sider.html'%}
+		<div class="span8">
+			<div class="well sidebar-nav">
+				<h3>我的小组话题</h3>
+			</div>
 		</div>
 	</div>
-
-{%endblock%}
+</div>
+{% endblock %}

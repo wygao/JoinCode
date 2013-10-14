@@ -10,6 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 import hashlib
 
 
+	
 def index(request):
 	group_list = Group.objects.all()
 	if request.user.is_authenticated():
@@ -27,12 +28,7 @@ def login_user(request):
 		user = authenticate(username=username, password=password)
 		if user is not None:
 			login(request, user)
-			return HttpResponseRedirect('/index/')
-		else:
-			# return HttpResponse('%s,%s' % (username, password))
-			return HttpResponse(user) 
-
-	return render(request,'login.html',{})
+	return HttpResponseRedirect('/index/')
 
 def sign_user(request):
 	if request.method == 'POST':
@@ -44,10 +40,12 @@ def sign_user(request):
 		user.set_password(password)
 		ProUser.objects.create(user=user)
 		user.save()
+		user = authenticate(username=username, password=password)
+		if user is not None:
+			login(request, user)
 		return HttpResponseRedirect('/index/')
-		
-	return render_to_response('regist.html',{},
-				context_instance=RequestContext(request))
+	else:
+		return HttpResponseRedirect('/index/')
 
 def create_group(request):
 	if request.method == 'POST':
@@ -66,6 +64,15 @@ def create_group(request):
 			group.save()
 			return HttpResponseRedirect('/index/')
 	return render(request,'create_group.html',{'user':request.user})
+
+def about_group(request):
+	return render(request,'about_group.html',{})
+
+def view_group(request, id):
+	group = Group.objects.get(id=id)
+
+	return render(request, 'my_group.html',{'group':group})
+
 
 def add_group(request, id):
 	try:
@@ -95,10 +102,6 @@ def add_member(request, id):
 	return render(request, 'add_mem.html', {'group':group})
 
 
-def about_group(request, id):
-	group = Group.objects.get(id=id)
-
-	return render(request, 'about_group.html',{'group':group})
 
 
 def blog_me(request, id):
@@ -137,16 +140,17 @@ def account(request, id):
 	user = request.user
 	if request.method == 'POST':
 		email = request.POST.get('email',user.email)
-		print email
-		user.email = email
+		if email:
+			user.email = email
 		headimg = 'http://bcs.duapp.com/danpy5/upload/sunny.jpg'
 		user.prouser.headimg = headimg
 		user.prouser.save()
-		password = request.POST.get('newpasswd',user.password)
-		password = hashlib.sha1(user.username + password).hexdigest()
-		user.set_password(password)
+		password = request.POST.get('newpasswd')
+		if password:
+			password = hashlib.sha1(user.username + password).hexdigest()
+			user.set_password(password)
 		user.save()
-		return HttpResponse('ok')
+		return HttpResponseRedirect('/account/%s /' % id)
 
 	return render(request, 'account.html', {})
 

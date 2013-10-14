@@ -1,0 +1,45 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+<div class="container">
+	<div class="row-fluid">
+		<div class="span4">
+			<div class="well sidebar-nav">
+				 <h3>{{group.groupname}}</h3>
+		      <div>
+		      	<li>master:<a href="/blog/{{group.master.id}}/">{{group.master.username}}</a></li>
+		      </div>
+		      {% if user in group.members.all%}
+		      <div style="padding:10px 0px 0px">
+		      	<div>
+		      	<a href="/add_member/{{group.id}}/" class="btn btn-success">add member</a>
+		      	</div>
+		      	{% if user == group.master%}
+				<div style="padding:5px 0px 0px">
+		      	<a href="/del_group/{{group.id}}/" class="btn btn-success">del group</a>
+		     	</div>
+		      	{% endif %}
+		      </div>
+		      {% else%}
+		      <div style="padding:5px 0px 0px">
+		      	<a href="/add_group/{{group.id}}/" class="btn btn-success">add group</a>
+		      </div>
+		      {% endif %}
+		      
+		    </div>
+		    <div class="row-fluid">
+		    	<div class="well sidebar-nav">
+					<h3>zuijin jiaru</h3>
+					
+		    	</div>
+		    </div>
+		</div>
+		<div class="span8">
+			<div class="well sidebar-nav">
+				<h3>我的小组话题</h3>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
