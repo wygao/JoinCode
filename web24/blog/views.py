@@ -6,6 +6,7 @@ from django.template import RequestContext
 from django.contrib.auth.models import User 
 from blog.models  import Letter, Group,ProUser
 from django.contrib.auth import login, logout, authenticate
+from django.core.exceptions import ObjectDoesNotExist
 import hashlib
 
 
@@ -66,8 +67,11 @@ def create_group(request):
 			return HttpResponseRedirect('/index/')
 	return render(request,'create_group.html',{'user':request.user})
 
-def apply_add(request, id):
-	group = Group.objects.get(id=id)
+def add_group(request, id):
+	try:
+		group = Group.objects.get(id=id)
+	except ObjectDoesNotExist:
+		return HttpResponse('exists group')
 	if request.user.is_authenticated():
 		user = request.user
 		if user not in group.members.all():
@@ -79,24 +83,29 @@ def apply_add(request, id):
 
 def add_member(request, id):
 	group = Group.objects.get(id=id)
-
+	if request.method == "POST":
+		mem = request.POST.get('member')
+		try:
+			member = User.objects.get(username=mem)
+		except ObjectDoesNotExist:
+			return HttpResponse('user dose not exists')
+		if member not in group.members.all():
+			Letter.objects.create(letter='',post_user=request.user, recv_user=member, invite_id=group.id)
+			return HttpResponse('add success')
 	return render(request, 'add_mem.html', {'group':group})
 
 
 def about_group(request, id):
 	group = Group.objects.get(id=id)
 
-	if request.method == "POST":
-		mem = request.POST.get('member')
-		member = User.objects.get(username=mem)
 	return render(request, 'about_group.html',{'group':group})
 
 
 def blog_me(request, id):
 	about_user = User.objects.get(id=id)
 	letter_list = about_user.recv.all()
-
-	return render(request, 'blog.html', {'about_user': about_user, 'user':request.user,
+	user = request.user 
+	return render(request, 'blog.html', {'about_user': about_user, 'user':user,
 					'letter_list':letter_list})
 
 def letter(request, id):
@@ -118,6 +127,28 @@ def attention(request, id):
 		user.prouser.attention.add(about_user)
 		return HttpResponseRedirect('/index/')
 	return HttpResponse('attention friends')
+
+def del_group(request, id):
+	group = Group.objects.get(id=id)
+	group.delete()
+	return HttpResponseRedirect('/index/')
+
+def account(request, id):
+	user = request.user
+	if request.method == 'POST':
+		email = request.POST.get('email',user.email)
+		print email
+		user.email = email
+		headimg = 'http://bcs.duapp.com/danpy5/upload/sunny.jpg'
+		user.prouser.headimg = headimg
+		user.prouser.save()
+		password = request.POST.get('newpasswd',user.password)
+		password = hashlib.sha1(user.username + password).hexdigest()
+		user.set_password(password)
+		user.save()
+		return HttpResponse('ok')
+
+	return render(request, 'account.html', {})
 
 def logout_user(request):
 	request.session.clear()

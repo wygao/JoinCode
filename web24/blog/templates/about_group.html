@@ -13,6 +13,9 @@
 		      {% if user in group.members.all%}
 		      <div style="padding:15px 0px 0px">
 		      	<a href="/add_member/{{group.id}}/" class="btn btn-success">add member</a>
+		      	{% if user == group.master%}
+		      	<a href="/del_group/{{group.id}}/" class="btn btn-success">del group</a>
+		      	{% endif %}
 		      </div>
 		      {% else%}
 		      <div style="padding:15px 0px 0px">

@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.db.models import permalink
 
 class ProUser(models.Model):
-	user = models.OneToOneField(User)
-	headimg = models.URLField(blank=True, null=True, verbose_name=u'headimg')
+	user = models.OneToOneField(User, related_name=u'prouser')
+	headimg = models.CharField(max_length=200,blank=True, null=True, verbose_name=u'headimg')
 	attention = models.ManyToManyField(User, related_name=u'attention')
 
 	def __unicode__(self):
@@ -15,6 +15,7 @@ class ProUser(models.Model):
 class Letter(models.Model):
 	letter = models.CharField(max_length=400, verbose_name=u'letter')
 	create_time = models.DateTimeField(auto_now_add=True, verbose_name=u'xiexinshijian')
+	invite_id = models.IntegerField(blank=True, null=True, verbose_name=r'yaoqing')
 	read = models.BooleanField(default=False, verbose_name=u'read')
 	post_user = models.ForeignKey(User, related_name=u'post')
 	recv_user = models.ForeignKey(User, related_name=u'recv')
@@ -27,7 +28,7 @@ class Group(models.Model):
 	create_time = models.DateTimeField(auto_now_add=True,verbose_name=u'createtime')
 	description = models.TextField(verbose_name=u'description')
 
-	members = models.ManyToManyField(User, related_name=u'member')
+	members = models.ManyToManyField(User, related_name=u'members')
 
 	@permalink
 	def get_absolute_url(self):

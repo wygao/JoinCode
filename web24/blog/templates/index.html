@@ -19,7 +19,7 @@
 		  		{% if user.username %}
 		  		<div class="row-fluid">
 		  			<h3>my group</h3>
-					{% for mygroup in user.member.all%}
+					{% for mygroup in user.members.all%}
 					<div>
 						<li><a href="/group/{{mygroup.id}}/">{{mygroup.groupname}}</a></li>
 					</div>
