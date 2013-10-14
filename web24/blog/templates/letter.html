@@ -1,15 +1,15 @@
 {% extends 'base.html'%}
-{% block title%}group{%endblock%}
+{% block title%}letter{%endblock%}
 
 {%block content%}
 	{% if user %}
 	<div class="div-style">
-		<h3>letter</h3>
+		<h3>私信</h3>
 		<form action="" method="post" class="form-horizontal">
 			{% csrf_token %}
 
 			<div class="control-group">
-				<label class="control-label" for="recv-letter">{{about_user.username}}</label>
+				<label class="control-label" for="recv-letter">接受用户：{{about_user.username}}</label>
 				<div class="controls">
 					<textarea rows="3" id="recv-letter" name="letter"></textarea>
 				  <!-- <input type="text" id="group-d" placeholder="group description"> -->
@@ -17,7 +17,7 @@
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn">post</button>
+					<button type="submit" class="btn">发送</button>
 				</div>
 			</div>
 		</form>

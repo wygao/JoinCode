@@ -2,25 +2,32 @@
 {% block title%}index{%endblock%}
 
 {%block content%}
+
 	<div class="container">
+		{% load markup %}
 		<div class="row-fluid">
 			<div class="span4">
 				<div class="well sidebar-nav">
 					<ul class="nav nav-list">
-						<li><a href="">我发起的活动</a></li>
+						<li><a href="/blog/{{user.id}}/">我发起的活动</a></li>
 						<li><a href="">我的小组话题</a></li>
 						<li><a href="">我回应的活动</a></li>
-						<li><a href="/create_group/">shenqingxiaozu</a></li>
+						<li><a href="/create_group/">申请小组</a></li>
 					</ul>
 				</div>
 				<div class="row-fluid">
 					<div class="well sidebar-nav" style="width:332px;height:250px;">
-						<h3>remen xiaozu</h3>
+						<h3>热门小组</h3>
+					<ul class="nav nav-list">
+						{% for group in group_list %}
+						<li><a href="/group/{{group.id}}/">{{group.groupname}}</a></li>
+						{% endfor %}
+						
 					</div>
 				</div>
 				<div class="row-fluid">
 					<div class="well sidebar-nav" style="width:332px;height:250px;">
-						<h3>remen huati</h3>
+						<h3>热门话题</h3>
 					</div>
 				</div>			
 			</div>
@@ -39,32 +46,21 @@
 				</div>
 				<div class="span12">
 					<div class="row-fluit">
-						<div class="well sidebar-nav">
+						{% for article in article_list %}
+						<div class="well sidebar-nav codehilite">
 							<ul>
 								<li>
-										<img src="http://tb.himg.baidu.com/sys/portrait/item/6142c8a8bca6d3bf48454152540f30" alt="" width="50px">
-										<h5>bbb的Join东东：</h5>
-										<p>title</p>
-										<p>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</p>
-										<h6>2分钟前</h6>	
-										<a class="btn btn-primary" href="/replay/{{post.id}}/" data-toggle="modal">回帖 »</a>									
+									<img src="{{article.author.prouser.headimg}}" alt="" width="50px">
+									<h5>作者:{{article.author}}</h5>
+									<p> 标题 :{{article.title}}</p>
+									<p> 内容 :{{article.content|markdown:'codehilite'}}</p>
+									<p> 发表时间 : {{article.create_time|date:"m/d/Y"}} 来自 {{article.group}}小组</p>
+									<a class="btn btn-primary" href="/topic/{{article.id}}/" data-toggle="modal">回帖 »</a>									
 								</li>							
 							</ul>
 						</div>
 						<hr/>
-						<div class="well sidebar-nav">
-							<ul>
-								<li>
-										<img src="http://tb.himg.baidu.com/sys/portrait/item/415bcfabd7d364656d617530" alt="" width="50px">
-										<h5>ccc的Join东东：</h5>
-										<p>title</p>
-										<p>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</p>
-										<h6>2分钟前</h6>	
-										<a class="btn btn-primary" href="/replay/{{post.id}}/" data-toggle="modal">回帖 »</a>									
-								</li>							
-							</ul>
-						</div>
-						<hr/>
+						{% endfor %}
 					</div>
 				</div>
 			</div>

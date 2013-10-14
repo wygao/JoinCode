@@ -19,5 +19,6 @@ urlpatterns = patterns('',
     url(r'^my_mail/(?P<id>\d+)/$','blog.views.recv_mail'),
     url(r'^attention/(?P<id>\d+)/$','blog.views.attention'),
     url(r'^account/(?P<id>\d+)/$', 'blog.views.account'),
-    url(r'^article/(?P<id>\d+).$', 'blog.views.article'),
+    url(r'^article/(?P<id>\d+)/$', 'blog.views.article'),
+    url(r'^topic/(?P<id>\d+)/$', 'blog.views.topic'),
 )

@@ -1,18 +1,18 @@
 <div class="modal hide fade"  id="login">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"  >&times;</button>
-      <h3>login</h3>
+      <h3>登入</h3>
     </div>
     <div class="modal-body">
         <form class="form-horizontal"id="login_form" action="/login/" method="post">{% csrf_token %}
             <div class="control-group">
-              <label class="control-label" for="inputUsername"style="margin-top:20px;">Username</label>
+              <label class="control-label" for="inputUsername">用户名</label>
               <div class="controls">
                 <input type="text" name="username" id="inputUsername" placeholder="Username">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="inputPassword"style="margin-top:20px;">Password</label>
+              <label class="control-label" for="inputPassword">密码</label>
               <div class="controls">
                 <input type="password" name="passwd" id="inputPassword" placeholder="Password">
               </div>
@@ -21,31 +21,31 @@
     </div>
     <div class="modal-footer">
       <a href="#" style='float:left;margin-top:20px;height:0px;'>Forgot your password?</a>
-      <button type="button" class="btn btn-primary"onclick="document.getElementById('login_form').submit()">Log in</button>
+      <button type="button" class="btn btn-primary"onclick="document.getElementById('login_form').submit()">登入</button>
     </div>
 </div>
 <!--以上为登录模态对话框-->
 <div class="modal hide fade"  id="regist">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal"  >&times;</button>
-      <h3>regist</h3>
+      <h3>注册</h3>
     </div>
     <div class="modal-body">
         <form class="form-horizontal"id="regist_form" action="/regist/" method="post">{% csrf_token %}
             <div class="control-group">
-              <label class="control-label" for="inputUsername"style="margin-top:20px;">Username</label>
+              <label class="control-label" for="inputUsername">用户名</label>
               <div class="controls">
                 <input type="text" name="username" id="inputusername" placeholder="username">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="inputEmail"style="margin-top:20px;">Email</label>
+              <label class="control-label" for="inputEmail">邮箱</label>
               <div class="controls">
                 <input type="text" name="email" id="inputEmail" placeholder="Email">
               </div>
             </div>
             <div class="control-group">
-              <label class="control-label" for="inputPassword"style="margin-top:20px;">Password</label>
+              <label class="control-label" for="inputPassword">密码</label>
               <div class="controls">
                 <input type="password" name="passwd" id="inputPassword" placeholder="Password">
               </div>
@@ -54,7 +54,7 @@
     </div>
     <div class="modal-footer">
       <a href="#" style='float:left;margin-top:20px;height:0px;'>Forgot your password?</a>
-      <button type="button" class="btn btn-primary"onclick="document.getElementById('regist_form').submit()">regist</button>
+      <button type="button" class="btn btn-primary"onclick="document.getElementById('regist_form').submit()">注册</button>
     </div>
 </div>
 <!--以上为注册模态对话框-->
@@ -69,19 +69,19 @@
 			</button>
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li class="active"><a href="/index/">main</a></li>
-					<li><a href="/group/">group</a></li>
+					<li class="active"><a href="/index/">首页</a></li>
+					<li><a href="/group/">小组</a></li>
 				</ul>
 				<ul class="nav pull-right">
 					{% if user.username%}
-					<li><a href="/my_mail/{{user.id}}/">mail</a></li>				
+					<li><a href="/my_mail/{{user.id}}/">邮箱</a></li>				
 					<li><a href="/blog/{{user.id}}/">{{user.username}}</a></li>
-					<li><a href="/logout/">logout</a></li>	
+					<li><a href="/logout/">退出</a></li>	
 					{% else%}
 					<!--<li><a href="/regist/">regist</a></li>
 					<li><a href="/login/">login</a></li>-->
-                    <li><a data-toggle="modal" href="#regist">regist</a></li>
-                    <li><a data-toggle="modal" href="#login">login</a></li>
+                    <li><a data-toggle="modal" href="#regist">注册</a></li>
+                    <li><a data-toggle="modal" href="#login">登入</a></li>
 					{% endif%}			
 				</ul>
 			</div>

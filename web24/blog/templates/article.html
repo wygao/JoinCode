@@ -3,27 +3,28 @@
 {% block content %}
 
 <div class="container">
+	{% load markup %}
 	<div class="row-fluid">
 		<div class="span4">
 			<div class="well sidebar-nav">
 				 <h3><a href="/group/{{group.id}}">{{group.groupname}}</a></h3>
 		      <div>
-		      	<li>master:<a href="/blog/{{group.master.id}}/">{{group.master.username}}</a></li>
+		      	<li>组长:<a href="/blog/{{group.master.id}}/">{{group.master.username}}</a></li>
 		      </div>
 		      {% if user in group.members.all%}
 		      <div style="padding:10px 0px 0px">
 		      	<div>
-		      	<a href="/add_member/{{group.id}}/" class="btn btn-success">add member</a>
+		      	<a href="/add_member/{{group.id}}/" class="btn btn-success">邀请组员</a>
 		      	</div>
 		      	{% if user == group.master%}
 				<div style="padding:5px 0px 0px">
-		      	<a href="/del_group/{{group.id}}/" class="btn btn-success">del group</a>
+		      	<a href="/del_group/{{group.id}}/" class="btn btn-success">删除小组</a>
 		     	</div>
 		      	{% endif %}
 		      </div>
 		      {% else%}
 		      <div style="padding:5px 0px 0px">
-		      	<a href="/add_group/{{group.id}}/" class="btn btn-success">add group</a>
+		      	<a href="/add_group/{{group.id}}/" class="btn btn-success">加入小组</a>
 		      </div>
 		      {% endif %}
 		      
@@ -39,7 +40,7 @@
 		    </div>
 		    <div class="row-fluid">
 		    	<div class="well sidebar-nav">
-					<h3>zuijin jiaru</h3>
+					<h3>最近加入</h3>
 					{% for member in group.members.all%}
 					<li><a href="/blog/{{member.id}}/">{{member.username}}</a></li>
 					{% endfor %}
@@ -69,7 +70,7 @@
           <label class="control-label"></label>
           <div class="controls">
             <div class="textarea">
-                  <textarea type="" name="content" style="margin: 0px; width: 421px; height: 244px;"> </textarea>
+                  <textarea type="" name="content" style="margin: 0px; width: 421px; height: 244px;"></textarea>
             </div>
           </div>
         </div>

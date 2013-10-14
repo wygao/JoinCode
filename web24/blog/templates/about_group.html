@@ -8,6 +8,18 @@
 		<div class="span8">
 			<div class="well sidebar-nav">
 				<h3>我的小组话题</h3>
+				{% for group in user.members.all %}
+				{% for article in group.article_set.all %}
+					<table class="table table-hover table-condensed">
+						<tr class="success">
+						    <td>{{forloop.counter}}</td>
+						    <td width="400px"><a href="/topic/{{article.id}}/">{{article.title}}</a></td>
+						    <td>{{article.create_time|date:"d/m/Y"}}</td>
+						    <td><a href="/blog/{{article.author.id}}/">{{article.author}}</a></td>
+					 	</tr>
+					</table>
+				{% endfor %}
+				{% endfor %}
 			</div>
 		</div>
 	</div>

@@ -12,13 +12,10 @@ import hashlib
 
 	
 def index(request):
-	group_list = Group.objects.all()
-	if request.user.is_authenticated():
-		user = request.user 
-		letter = user.recv.all()
-
+	group_list = Group.objects.order_by('-id').all()[:5]
+	article_list = Article.objects.order_by('-id').all()
 	return render(request,'index.html',{'group_list': group_list, 
-				'user':request.user})
+				'user':request.user, 'article_list':article_list})
 
 def login_user(request):
 	if request.method == 'POST':
@@ -37,8 +34,9 @@ def sign_user(request):
 		password = request.POST['passwd']
 		password = hashlib.sha1(username + password).hexdigest()
 		user = User.objects.create_user(username=username,email=email)
+		headimg = "http://bcs.duapp.com/danpy5/upload/sunny.jpg"
 		user.set_password(password)
-		ProUser.objects.create(user=user)
+		ProUser.objects.create(user=user, headimg=headimg)
 		user.save()
 		user = authenticate(username=username, password=password)
 		if user is not None:
@@ -66,7 +64,11 @@ def create_group(request):
 	return render(request,'create_group.html',{'user':request.user})
 
 def about_group(request):
-	return render(request,'about_group.html',{})
+	if request.user.is_authenticated():
+		user = request.user
+	else:
+		user = ''
+	return render(request,'about_group.html',{'user':user})
 
 def view_group(request, id):
 	group = Group.objects.get(id=id)
@@ -84,7 +86,7 @@ def add_group(request, id):
 		if user not in group.members.all():
 			group.members.add(user)
 			group.save()
-			return HttpResponse('ok')
+			return HttpResponseRedirect('/group/%s/' % id)
 		return HttpResponse('this user is group master or group member')
 	return HttpResponse('please login')
 
@@ -98,10 +100,8 @@ def add_member(request, id):
 			return HttpResponse('user dose not exists')
 		if member not in group.members.all():
 			Letter.objects.create(letter='',post_user=request.user, recv_user=member, invite_id=group.id)
-			return HttpResponse('add success')
+			return HttpResponseRedirect('/group/%s/' % id)
 	return render(request, 'add_mem.html', {'group':group})
-
-
 
 
 def blog_me(request, id):
@@ -149,10 +149,20 @@ def article(request, id):
 	if request.method == "POST":
 		title = request.POST.get('title')
 		content = request.POST.get('content')
-		Article.objects.create(title=title,content=content,author=user,group=group)
-		return HttpResponseRedirect('/group/%s/' % id)
+		Article.objects.create(title=title,content=content,
+										author=user,group=group)
 
+		return HttpResponseRedirect('/group/%s/' % id)
 	return render(request,'article.html',{'group':group, 'user':user})
+
+def topic(request, id):
+	article = Article.objects.get(id=id)
+	user = request.user
+	if request.method == 'POST':
+		content = request.POST.get('content')
+		if content:
+			Reply.objects.create(content=content, article=article,user=user)	
+	return render(request, 'topic.html',{'article':article})
 
 def account(request, id):
 	user = request.user

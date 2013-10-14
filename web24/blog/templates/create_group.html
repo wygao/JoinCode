@@ -4,35 +4,35 @@
 {%block content%}
 	{% if user.username %}
 	<div class="div-style">
-		<h3>create group</h3>
+		<h3>申请小组</h3>
 		<form action="" method="post" class="form-horizontal">
 			{% csrf_token %}
 			<div class="control-group">
 				<div class="controls">
 					<label class="radio inline">
 					<input type="radio" value="True" name="ispub" checked="checked">
-					public
+				    公共小组	
 					</label>
 					<label class="radio inline">
 					<input type="radio" value="False" name="ispub">
-					private
+                    私有小组
 					</label>
 				</div>
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<p>public group can add but private group must member invite</p>
+					<p>私有小组必须得到邀请才能加入</p>
 				</div>
 			</div>
 
 			<div class="control-group">
-				<label class="control-label" for="group">group name</label>
+				<label class="control-label" for="group">小组名</label>
 				<div class="controls">
 				  <input type="text" id="group" placeholder="group name" name="groupname">
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="group-d">group desc</label>
+				<label class="control-label" for="group-d">小组简介</label>
 				<div class="controls">
 					<textarea rows="3" id="group-d" name="groupdesc"></textarea>
 				  <!-- <input type="text" id="group-d" placeholder="group description"> -->
@@ -40,7 +40,7 @@
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn">Sign in</button>
+					<button type="submit" class="btn">确认</button>
 				</div>
 			</div>
 		</form>

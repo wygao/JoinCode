@@ -3,6 +3,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import permalink
+from markdown import markdown
 
 class ProUser(models.Model):
 	user = models.OneToOneField(User, related_name=u'prouser')
@@ -26,6 +27,7 @@ class Group(models.Model):
 	master = models.ForeignKey(User)
 	isPublic = models.BooleanField(default=False, verbose_name=u'xiaozuzhuangtai')
 	# slug = models.SlugField(unique=True, verbose_name=u'slug')
+	# topic_count = models.IntegerField(default=0, verbose_name=u'num')
 	create_time = models.DateTimeField(auto_now_add=True,verbose_name=u'createtime')
 	description = models.TextField(verbose_name=u'description')
 
@@ -50,9 +52,12 @@ class Article(models.Model):
 	def __unicode__(self):
 		return self.title
 
+
+
 class Reply(models.Model):
 	content = models.TextField(verbose_name=u'content')
 	create_time = models.DateTimeField(auto_now_add=True, verbose_name=u'createtime')
 
-	article = models.ForeignKey(Article, related_name=u'article')
+	user = models.ForeignKey(User)
+	article = models.ForeignKey(Article)
 
