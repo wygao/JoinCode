@@ -16,6 +16,8 @@ urlpatterns = patterns('',
     url(r'^group/(?P<id>\d+)/$', 'blog.views.view_group'),
     url(r'^blog/(?P<id>\d+)/$', 'blog.views.blog_me'),
     url(r'^letter/(?P<id>\d+)/$', 'blog.views.letter'),
+    url(r'^my_mail/(?P<id>\d+)/$','blog.views.recv_mail'),
     url(r'^attention/(?P<id>\d+)/$','blog.views.attention'),
     url(r'^account/(?P<id>\d+)/$', 'blog.views.account'),
+    url(r'^article/(?P<id>\d+).$', 'blog.views.article'),
 )

@@ -28,26 +28,14 @@
 			</div>
 		</div>
 		{% endif %}
-		<div class="row-fluid" >
-			<div class="span4">
-				<div class="well sidebar-nav" style="width:332px;height:250px;">
-					<img src="/static/img/83025aafa40f4bfb0a1bab94024f78f0f6361822.jpg/" alt="" >
-				</div>
+		<div class="row-fluid" >	
+			<div class="well sidebar-nav" style="width:332px;height:250px;">
+				<h3>attention</h3>
+				<ul class="nav nav-list">
+		  			{% for atte_user in user.prouser.attention.all %}
+		  			<li><a href="/blog/{{atte_user.id}}">{{atte_user.username}}</a></li>
+		  			{% endfor%}
+				</ul>
 			</div>
 		</div>				
-		<div class="row-fluid" >
-			<div class="span4">
-				<div class="well sidebar-nav" style="width:332px;height:250px;">
-					<img src="/static/img/83025aafa40f4bfb0a1bab94024f78f0f6361822.jpg/" alt="" >
-				</div>
-			</div>
-		</div>				
-		<div class="row-fluid" >
-			<div class="span4">
-				<div class="well sidebar-nav" style="width:332px;height:250px;">
-					<img src="/static/img/83025aafa40f4bfb0a1bab94024f78f0f6361822.jpg/" alt="" >
-				</div>
-			</div>
-		</div>
-	
 </div>

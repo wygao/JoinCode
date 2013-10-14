@@ -4,7 +4,7 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.models import User 
-from blog.models  import Letter, Group,ProUser
+from blog.models  import Letter, Group,ProUser, Article, Reply
 from django.contrib.auth import login, logout, authenticate
 from django.core.exceptions import ObjectDoesNotExist
 import hashlib
@@ -120,8 +120,15 @@ def letter(request, id):
 	if request.method == 'POST':
 		content = request.POST.get('letter')
 		Letter.objects.create(letter=content,post_user=user, recv_user=about_user)
-		return HttpResponse('post done')
+		return HttpResponseRedirect('/blog/%s/' % about_user.id)
 	return render(request, 'letter.html',{'user':user, 'about_user':about_user})
+
+def recv_mail(request, id):
+	about_user = User.objects.get(id=id)
+	letter_list = about_user.recv.all()
+	user = request.user 
+	return render(request, 'my_mail.html', {'about_user': about_user, 'user':user,
+					'letter_list':letter_list})
 
 def attention(request, id):
 	about_user = User.objects.get(id=id)
@@ -135,6 +142,17 @@ def del_group(request, id):
 	group = Group.objects.get(id=id)
 	group.delete()
 	return HttpResponseRedirect('/index/')
+
+def article(request, id):
+	group = Group.objects.get(id=id)
+	user = request.user
+	if request.method == "POST":
+		title = request.POST.get('title')
+		content = request.POST.get('content')
+		Article.objects.create(title=title,content=content,author=user,group=group)
+		return HttpResponseRedirect('/group/%s/' % id)
+
+	return render(request,'article.html',{'group':group, 'user':user})
 
 def account(request, id):
 	user = request.user
@@ -150,7 +168,7 @@ def account(request, id):
 			password = hashlib.sha1(user.username + password).hexdigest()
 			user.set_password(password)
 		user.save()
-		return HttpResponseRedirect('/account/%s /' % id)
+		return HttpResponseRedirect('/account/%s/' % id)
 
 	return render(request, 'account.html', {})
 

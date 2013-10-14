@@ -1,5 +1,5 @@
 {% extends 'base.html'%}
-{% block title%} blog{%endblock%}
+{% block title%} my mail{%endblock%}
 
 {%block content%}
 	<div class="container-fluid">
@@ -21,11 +21,23 @@
 		    </div>
 		    <div class="span8 div-style">
 		      <div>
-		     		<h3>我的小组话题</h3>
-		     		{% for article in user.article_set.all%}
-		     		<li><a href="">{{article.title}}</a></li>
+		     		{%if about_user == user%}
+		     		<h3>letter</h3>
+		     		{% for letter in letter_list%}
+			     		{%if letter.invite_id %}
+			     		<div><span>{{letter.create_time|date:"Y-m-s"}}</span>
+						<span>{{letter.post_user}} invite add group</span>
+						<a href="/add_group/{{letter.invite_id}}/" class="btn btn-success">add</a>
+			     		</div>
+			     		{% endif%}
+		     		<div><span>{{letter.create_time|date:"Y-m-s"}}</span>
+		     			<span>
+		     			<a href="/blog/{{letter.post_user.id}}/">{{letter.post_user}}</a>
+		     			</span>
+		     			<span>{{letter.letter}}</span>
+		     		</div>
 		     		{% endfor %}
-		     	
+		     		{% endif%}
 		      </div>
 		    </div>
 		</div>

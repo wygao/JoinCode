@@ -22,7 +22,7 @@ class Letter(models.Model):
 
 class Group(models.Model):
 	groupname = models.CharField(max_length=50, unique=True, verbose_name=u'groupname')
-	# groupimg = models.CharField(max_length=200,blank=True, null=True, verbose_name=u'groupimg')
+	groupimg = models.CharField(max_length=200,blank=True, null=True, verbose_name=u'groupimg')
 	master = models.ForeignKey(User)
 	isPublic = models.BooleanField(default=False, verbose_name=u'xiaozuzhuangtai')
 	# slug = models.SlugField(unique=True, verbose_name=u'slug')
@@ -37,3 +37,22 @@ class Group(models.Model):
 
 	def __unicode__(self):
 		return self.groupname
+
+
+class Article(models.Model):
+	title = models.CharField(max_length=75, verbose_name=u'biaoti')
+	content = models.TextField(verbose_name=u'content')
+	create_time = models.DateTimeField(auto_now_add=True, verbose_name=u'createtime')
+
+	author = models.ForeignKey(User)
+	group = models.ForeignKey(Group)
+
+	def __unicode__(self):
+		return self.title
+
+class Reply(models.Model):
+	content = models.TextField(verbose_name=u'content')
+	create_time = models.DateTimeField(auto_now_add=True, verbose_name=u'createtime')
+
+	article = models.ForeignKey(Article, related_name=u'article')
+
