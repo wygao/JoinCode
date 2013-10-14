@@ -6,7 +6,7 @@
 		<div class="masthead">
 			<ul class="nav nav-pills pull-right">
 				<li><a href="/index/">首页</a></li>
-				<li><a href="/#/">我的Joincode</a></li>
+				<li><a href="#">我的Joincode</a></li>
 				<li><a href="#">浏览发现</a></li>
 			</ul>
 			<h3 class="muted"><a href="">Join code</a></h3>
