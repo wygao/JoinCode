@@ -7,23 +7,22 @@
 		<div class="span3">
 			<div class="well sidebar-nav">
 		      <div>
-				<img src="/static/{{group.groupimg}}" width="150"  height="150" alt="groupImg" />
-		      	<li style="font-size:18px; margin-top:5px;">组长:<a href="/blog/{{group.master.id}}/">{{group.master.username}}</a></li>
-				<li style="font-size:14px; margin-top:5px;">创建于:{{group.create_time|date:"Y-m-d"}}</li>
+		      	<li>组长:<a href="/blog/{{group.master.id}}/">{{group.master.username}}</a></li>
 		      </div>
 		      {% if user in group.members.all%}
 		      <div style="padding:10px 0px 0px">
 		      	<div>
 		      	<a href="/add_member/{{group.id}}/" class="btn btn-success">邀请组员</a>
+		      	</div>
 		      	{% if user == group.master%}
-				<!--div style="padding:5px 0px 0px"-->
-		      	<a href="/del_group/{{group.id}}/" class="btn btn-danger">删除小组</a>
+				<div style="padding:5px 0px 0px">
+		      	<a href="/del_group/{{group.id}}/" class="btn btn-success">删除小组</a>
 		     	</div>
 		      	{% endif %}
 		      </div>
 		      {% else%}
 		      <div style="padding:5px 0px 0px">
-		      <a href="/add_group/{{group.id}}/" class="btn btn-success">加入小组</a>
+		      	<a href="/add_group/{{group.id}}/" class="btn btn-success">加入小组</a>
 		      </div>
 		      {% endif %}
 		      
@@ -51,12 +50,9 @@
 		</div>
 		<div class="span9">
 			<div class="well sidebar-nav">
-				<h3 title="小组称号">{{group.groupname|slice:":10"}}...</h3>
-				<p title="小组描述">&nbsp;&nbsp;&nbsp;{{group.description}}</p>
-				{% if user.username %}
-					<span class="nav nav-pills pull-right" style="font-size:2em;" ><a href="/edit_group/{{group.id}}">小组设置</a></span>
-				{% else %}
-				{% endif %}
+				 <h3><a href="/group/{{group.id}}">{{group.groupname|slice:":4"}}...</a></h3>
+				<h3>小组description</h3>
+				<p>&nbsp;&nbsp;&nbsp;{{group.description}}</p>
 			</div>
 			<div class="row-fluid">
 				<div class="well sidebar-nav">

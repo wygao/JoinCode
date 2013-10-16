@@ -1,0 +1,30 @@
+{% extends 'base.html'%}
+{% block title %}edit_group{% endblock %}
+{% block content %}
+{% if user.username %}
+	<div class="span7">
+		<form method='post' action='/update_group/{{group.id}}/' enctype="multipart/form-data"> {% csrf_token %}
+			<table>
+				<tr>
+					<td>小组名称:</td>
+					<td><input type="text" name="group_name" value="{{group.groupname}}" class="span4"/></td>
+				</tr>
+				<tr>
+					<td valign="top">小组描述:</td>
+					<td><textarea name="group_description" cols="6" rows="13" class="span4"  valign="top">{{group.description}}</textarea></td>
+				</tr>
+				<tr >
+					<td valign="top">小组标识:</td>
+					<td ><img src="/static/{{group.groupimg}} " alt="img" width="50" height="50"/>
+					<input type="file" name='groupimg' /></td>
+				</tr>
+			</table>
+				<div class="pull-right" style="margin-top:15px;" >
+					<span ><button class="btn btn-success" type="submit">更新设置</button></span>
+					<span style="margin-left:200px; margin-right:245px;"><button class="btn btn-success" type="button" onclick="location.assign('/group/{{group.id}}/')"><span style="word-spacing:17px">返 回</span></button></span>
+				</div>
+		</form>
+	</div>
+{% else %}
+{% endif %}
+{% endblock %}

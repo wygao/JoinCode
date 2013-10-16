@@ -23,7 +23,7 @@ class Letter(models.Model):
 
 class Group(models.Model):
 	groupname = models.CharField(max_length=50, unique=True, verbose_name=u'groupname')
-	groupimg = models.CharField(max_length=200,blank=True, null=True, verbose_name=u'groupimg')
+	groupimg = models.FileField(upload_to="./groupImg",blank=True, null=True, verbose_name=u'groupimg')
 	master = models.ForeignKey(User)
 	isPublic = models.BooleanField(default=False, verbose_name=u'xiaozuzhuangtai')
 	# slug = models.SlugField(unique=True, verbose_name=u'slug')

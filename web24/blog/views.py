@@ -72,7 +72,6 @@ def about_group(request):
 
 def view_group(request, id):
 	group = Group.objects.get(id=id)
-
 	return render(request, 'my_group.html',{'group':group})
 
 
@@ -90,6 +89,19 @@ def add_group(request, id):
 		return HttpResponse('this user is group master or group member')
 	return HttpResponse('please login')
 
+def edit_group(req, id):
+	group = Group.objects.get(id=id)
+	return render(req,'edit_group.html',{'group':group})
+
+def update_group(req,id):
+	group = Group.objects.get(id=id)
+	if req.method == "POST":
+		group.groupname = req.POST.get("group_name",None)
+		group.description = req.POST.get("group_description",None)
+		group.groupimg = req.FILES.get('groupimg',None)
+		group.save()
+		print group.groupimg
+		return HttpResponseRedirect("/group/%s/" %group.id)
 def add_member(request, id):
 	group = Group.objects.get(id=id)
 	if request.method == "POST":

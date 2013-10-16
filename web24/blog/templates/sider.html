@@ -13,7 +13,7 @@
 				<h3>我的小组 </h3>
 				<ul class="nav nav-list">
 					{% for mygroup in user.members.all%}
-					<li><span><img src="" alt="aaa"></span>
+					<li><span><img src="/static/{{mygroup.groupimg}}" alt="groupImg" width="50" height="50"></span>
 						<span>
 						<a href="/group/{{mygroup.id}}/">{{mygroup.groupname}}
 						{% if mygroup.isPublic == False%}
