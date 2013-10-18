@@ -152,7 +152,8 @@ def attention(request, id):
 
 def del_group(request, id):
 	group = Group.objects.get(id=id)
-	group.delete()
+	if request.user.is_authenticated():
+		group.delete()
 	return HttpResponseRedirect('/index/')
 
 def article(request, id):
